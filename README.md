@@ -4,7 +4,7 @@
 
 OLMS-V1 is a local SQLite AI tutor loop. Type a topic, get a focused teaching step, answer a short check, receive feedback, and continue through a saved local session.
 
-This repository is intentionally small. It does not include production OLMS systems, advanced planning, graph pipelines, managed database infrastructure, account systems, or operational tooling.
+This repository is intentionally small. 
 
 ## Why It Exists
 

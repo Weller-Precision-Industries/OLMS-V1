@@ -1,8 +1,14 @@
 # OLMS-V1
 
+[![Check](https://github.com/Weller-Precision-Industries/OLMS-V1/actions/workflows/check.yml/badge.svg)](https://github.com/Weller-Precision-Industries/OLMS-V1/actions/workflows/check.yml)
+
 OLMS-V1 is a local SQLite AI tutor loop. Type a topic, get a focused teaching step, answer a short check, receive feedback, and continue through a saved local session.
 
 This repository is intentionally small. It does not include production OLMS systems, advanced planning, graph pipelines, managed database infrastructure, account systems, or operational tooling.
+
+## Why It Exists
+
+OLMS-V1 preserves the early working idea behind OLMS: a learner should be able to type any topic and immediately enter a guided learning loop. It is built for local experimentation, remixing, and public inspection.
 
 ## What It Does
 
@@ -39,6 +45,8 @@ Open:
 ```text
 http://localhost:8080
 ```
+
+The app stores local session data in `data/olms-v1.sqlite` by default.
 
 ## Key Loading
 

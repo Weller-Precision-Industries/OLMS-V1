@@ -2,8 +2,15 @@
 	"name": "olms-v1",
 	"version": "0.1.0",
 	"description": "OLMS-V1: a local SQLite AI tutor loop that turns any topic into a guided learning session.",
-	"private": true,
 	"main": "standalone-server.ts",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Weller-Precision-Industries/OLMS-V1.git"
+	},
+	"bugs": {
+		"url": "https://github.com/Weller-Precision-Industries/OLMS-V1/issues"
+	},
+	"homepage": "https://github.com/Weller-Precision-Industries/OLMS-V1#readme",
 	"scripts": {
 		"dev": "pwsh -ExecutionPolicy Bypass -File scripts/dev/start-server.ps1",
 		"dev:win": "pwsh -ExecutionPolicy Bypass -File scripts/dev/start-server.ps1",
@@ -19,7 +26,7 @@
 		"sqlite",
 		"learning"
 	],
-	"author": "",
+	"author": "Weller Precision Industries",
 	"license": "AGPL-3.0-only",
 	"engines": {
 		"node": ">=22.12.0",

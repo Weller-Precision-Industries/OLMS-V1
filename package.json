@@ -1,0 +1,38 @@
+{
+	"name": "olms-classic",
+	"version": "0.1.0",
+	"description": "A local SQLite AI tutor loop that turns any topic into a guided learning session.",
+	"private": true,
+	"main": "standalone-server.ts",
+	"scripts": {
+		"dev": "pwsh -ExecutionPolicy Bypass -File scripts/dev/start-server.ps1",
+		"dev:win": "pwsh -ExecutionPolicy Bypass -File scripts/dev/start-server.ps1",
+		"dev:sh": "bash scripts/dev/start-server.sh",
+		"dev:mock": "pwsh -ExecutionPolicy Bypass -File scripts/dev/start-server.ps1 -Mock",
+		"start": "npx tsx standalone-server.ts",
+		"standalone": "npx tsx standalone-server.ts",
+		"check": "npx tsc --noEmit"
+	},
+	"keywords": [
+		"ai",
+		"tutor",
+		"sqlite",
+		"learning"
+	],
+	"author": "",
+	"license": "Apache-2.0",
+	"engines": {
+		"node": ">=22.12.0",
+		"npm": ">=10.0.0"
+	},
+	"dependencies": {
+		"better-sqlite3": "^12.4.1",
+		"dotenv": "^17.2.3",
+		"tsx": "^4.20.5"
+	},
+	"devDependencies": {
+		"@types/better-sqlite3": "^7.6.11",
+		"@types/node": "^20.19.25",
+		"typescript": "^5.9.3"
+	}
+}

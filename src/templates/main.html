@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>OLMS Classic</title>
+		<style>
+			:root {
+				color-scheme: light;
+				--ink: #1f2a2e;
+				--muted: #647277;
+				--line: #d6dedf;
+				--paper: #fbfaf6;
+				--panel: #ffffff;
+				--accent: #0b6b5f;
+				--accent-strong: #084c45;
+				--warm: #d97941;
+			}
+
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+				margin: 0;
+				font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+				background:
+					linear-gradient(135deg, rgba(11, 107, 95, 0.08), transparent 38%),
+					linear-gradient(315deg, rgba(217, 121, 65, 0.1), transparent 40%),
+					var(--paper);
+				color: var(--ink);
+			}
+
+			main {
+				width: min(1080px, calc(100vw - 32px));
+				margin: 0 auto;
+				padding: 40px 0;
+			}
+
+			header {
+				display: grid;
+				grid-template-columns: 1.1fr 0.9fr;
+				gap: 32px;
+				align-items: end;
+				margin-bottom: 28px;
+			}
+
+			h1 {
+				margin: 0;
+				font-size: clamp(2.4rem, 7vw, 5.8rem);
+				line-height: 0.9;
+				letter-spacing: 0;
+			}
+
+			.lede {
+				margin: 0;
+				color: var(--muted);
+				font-size: 1.08rem;
+				line-height: 1.5;
+			}
+
+			.shell {
+				display: grid;
+				grid-template-columns: 340px 1fr;
+				gap: 20px;
+				align-items: start;
+			}
+
+			.panel {
+				background: rgba(255, 255, 255, 0.88);
+				border: 1px solid var(--line);
+				border-radius: 8px;
+				padding: 18px;
+				box-shadow: 0 18px 48px rgba(31, 42, 46, 0.08);
+			}
+
+			label {
+				display: block;
+				font-weight: 700;
+				margin-bottom: 8px;
+			}
+
+			input,
+			textarea,
+			button {
+				width: 100%;
+				font: inherit;
+				border-radius: 6px;
+			}
+
+			input,
+			textarea {
+				border: 1px solid var(--line);
+				padding: 12px;
+				background: #fff;
+				color: var(--ink);
+			}
+
+			textarea {
+				min-height: 120px;
+				resize: vertical;
+			}
+
+			button {
+				margin-top: 12px;
+				border: 0;
+				padding: 12px 14px;
+				background: var(--accent);
+				color: white;
+				font-weight: 700;
+				cursor: pointer;
+			}
+
+			button:hover {
+				background: var(--accent-strong);
+			}
+
+			button:disabled {
+				cursor: not-allowed;
+				opacity: 0.55;
+			}
+
+			.status {
+				margin-top: 12px;
+				color: var(--muted);
+				min-height: 1.4em;
+			}
+
+			.event {
+				border-top: 1px solid var(--line);
+				padding: 18px 0;
+			}
+
+			.event:first-child {
+				border-top: 0;
+				padding-top: 0;
+			}
+
+			.event h2 {
+				margin: 0 0 8px;
+				font-size: 1.3rem;
+			}
+
+			.question {
+				margin-top: 14px;
+				padding-left: 14px;
+				border-left: 4px solid var(--warm);
+				font-weight: 700;
+			}
+
+			.feedback {
+				color: var(--accent-strong);
+				font-weight: 700;
+			}
+
+			@media (max-width: 820px) {
+				header,
+				.shell {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<header>
+				<h1>OLMS Classic</h1>
+				<p class="lede">
+					Type a topic, get a focused teaching step, answer a check, and keep moving through a local SQLite-backed tutor loop.
+				</p>
+			</header>
+
+			<section class="shell">
+				<form class="panel" id="topic-form">
+					<label for="topic">Topic</label>
+					<input id="topic" name="topic" placeholder="Probability, guitar chords, Roman roads..." autocomplete="off" />
+					<button type="submit">Start Learning</button>
+					<p class="status" id="status"></p>
+				</form>
+
+				<section class="panel" aria-live="polite">
+					<div id="events"></div>
+					<form id="answer-form" hidden>
+						<label for="answer">Your answer</label>
+						<textarea id="answer" name="answer"></textarea>
+						<button type="submit">Submit Answer</button>
+					</form>
+				</section>
+			</section>
+		</main>
+
+		<script>
+			let sessionId = null;
+			const statusEl = document.querySelector("#status");
+			const eventsEl = document.querySelector("#events");
+			const answerForm = document.querySelector("#answer-form");
+			const answerEl = document.querySelector("#answer");
+
+			document.querySelector("#topic-form").addEventListener("submit", async (event) => {
+				event.preventDefault();
+				const topic = new FormData(event.currentTarget).get("topic");
+				statusEl.textContent = "Starting session...";
+				const session = await postJson("/api/session/start", { topic });
+				sessionId = session.id;
+				renderSession(session);
+				statusEl.textContent = "Session saved locally.";
+			});
+
+			answerForm.addEventListener("submit", async (event) => {
+				event.preventDefault();
+				if (!sessionId) return;
+				const answer = answerEl.value;
+				answerEl.value = "";
+				statusEl.textContent = "Checking answer...";
+				const session = await postJson(`/api/session/${sessionId}/answer`, { answer });
+				renderSession(session);
+				statusEl.textContent = session.status === "complete" ? "Session complete." : "Next step ready.";
+			});
+
+			async function postJson(url, body) {
+				const response = await fetch(url, {
+					method: "POST",
+					headers: { "content-type": "application/json" },
+					body: JSON.stringify(body)
+				});
+				const data = await response.json();
+				if (!response.ok) throw new Error(data.error || "Request failed");
+				return data;
+			}
+
+			function renderSession(session) {
+				answerForm.hidden = session.status === "complete";
+				eventsEl.innerHTML = session.events.map(renderEvent).join("");
+			}
+
+			function renderEvent(event) {
+				const payload = event.payload;
+				if (event.type === "answer") {
+					return `<article class="event"><p><strong>Your answer:</strong> ${escapeHtml(payload.answer)}</p><p class="feedback">${escapeHtml(payload.feedback.feedback)} Score: ${Math.round(payload.feedback.score * 100)}%</p></article>`;
+				}
+				return `<article class="event"><h2>${escapeHtml(payload.title)}</h2><p>${escapeHtml(payload.explanation)}</p><p class="question">${escapeHtml(payload.question)}</p></article>`;
+			}
+
+			function escapeHtml(value) {
+				return String(value)
+					.replaceAll("&", "&amp;")
+					.replaceAll("<", "&lt;")
+					.replaceAll(">", "&gt;")
+					.replaceAll('"', "&quot;")
+					.replaceAll("'", "&#039;");
+			}
+		</script>
+	</body>
+</html>

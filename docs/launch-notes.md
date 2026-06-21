@@ -6,7 +6,7 @@ Working headline:
 
 Short description:
 
-> OLMS-V1 is the early open-source OLMS learning loop: type a topic, get a teaching step, answer a check, receive feedback, and continue through a local SQLite-backed session. It runs in mock mode without an API key and supports live OpenAI calls when configured.
+> OLMS-V1 is a local SQLite tutor loop: type a topic, get a teaching step, answer a check, receive feedback, and continue through a saved session. It runs in mock mode without an API key and supports live OpenAI calls when configured.
 
 Suggested launch bullets:
 

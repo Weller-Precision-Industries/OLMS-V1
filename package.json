@@ -21,10 +21,13 @@
 		"check": "npx tsc --noEmit"
 	},
 	"keywords": [
-		"ai",
-		"tutor",
+		"education",
+		"learning",
+		"ai-tutor",
 		"sqlite",
-		"learning"
+		"typescript",
+		"local-first",
+		"agpl"
 	],
 	"author": "Weller Precision Industries",
 	"license": "AGPL-3.0-only",

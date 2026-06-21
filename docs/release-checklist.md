@@ -1,6 +1,6 @@
 # Release Checklist
 
-Use this checklist before changing the repository from private to public.
+Use this checklist before publishing a release.
 
 ## Required
 
@@ -11,34 +11,22 @@ Use this checklist before changing the repository from private to public.
 - GitHub Actions `Check` workflow passes on `main`.
 - License is AGPL-3.0-only in `package.json`.
 - `LICENSE` contains the AGPL-3.0 text.
-- No private OLMS product systems are present.
 - No local databases, logs, or key files are committed.
 
-## Product Boundary
+## Demo Path
 
-Confirm the public repo contains only:
+Confirm the README walkthrough still matches the local flow:
 
-- local topic entry
-- AI or mock tutor steps
-- answer feedback
-- SQLite session storage
-- small local web UI
-- key-loading dev scripts
-
-Confirm the public repo does not contain:
-
-- production OLMS platform code
-- graph pipelines
-- advanced planning engines
-- managed database infrastructure
-- account systems
-- paid-account systems
-- private prompts or evaluations
-- operational runbooks
+- `npm ci`
+- `npm run dev:mock`
+- open `http://localhost:8080`
+- type `probability`
+- answer the check
+- confirm feedback and the next step
 
 ## Launch Prep
 
-- Add screenshot or short demo recording.
+- Add or refresh the GIF walkthrough.
 - Create a `v1.0.0` release tag.
 - Prepare launch post copy.
-- Confirm repo visibility change with owner.
+- Confirm repo settings with owner.

@@ -2,7 +2,7 @@
 
 ## Supported Scope
 
-This project is a local development and experimentation app. It is not hardened for multi-tenant production use.
+This project is a local development and experimentation app. Review security controls carefully before adapting it for hosted use.
 
 ## Secrets
 
@@ -17,7 +17,7 @@ Use `secrets/api-keys.template.txt` as the public template.
 
 ## Reporting Issues
 
-Report security issues privately to the repository maintainers. Do not open public issues containing secrets, exploit details, or private data.
+Report sensitive security issues directly to the repository maintainers. Do not open public issues containing secrets or exploit details.
 
 ## Before Deploying
 

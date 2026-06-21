@@ -4,19 +4,16 @@
 
 OLMS-V1 is a local SQLite AI tutor loop. Type a topic, get a focused teaching step, answer a short check, receive feedback, and continue through a saved local session.
 
-This repository is intentionally small. 
+![OLMS-V1 mock walkthrough](docs/assets/olms-v1-walkthrough.gif)
 
-## Why It Exists
+## Tutor Loop
 
-OLMS-V1 preserves the early working idea behind OLMS: a learner should be able to type any topic and immediately enter a guided learning loop. It is built for local experimentation, remixing, and public inspection.
-
-## What It Does
-
-- Starts a local web server.
-- Stores sessions and learning events in SQLite.
-- Uses mock mode by default when no provider key is configured.
-- Can call OpenAI for live teaching steps and answer feedback.
-- Loads local API keys through the dev start script.
+- Type a topic.
+- Get a focused teaching step.
+- Answer a check.
+- Read feedback.
+- Save progress locally in SQLite.
+- Run in mock mode without an API key.
 
 ## Quickstart
 
@@ -106,9 +103,9 @@ Health:
 GET /api/health
 ```
 
-## Project Boundary
+## Local SQLite Architecture
 
-This is a classic local tutor loop. It is not a production learning platform and does not include private OLMS product systems.
+OLMS-V1 runs as a small local web server. `standalone-server.ts` owns HTTP routes, `src/tutor/store.ts` writes sessions and events to SQLite, `src/tutor/ai.ts` provides mock or OpenAI-backed tutor responses, and `src/templates/main.html` renders the browser experience.
 
 See [docs/architecture.md](docs/architecture.md) and [docs/tutor-loop.md](docs/tutor-loop.md).
 

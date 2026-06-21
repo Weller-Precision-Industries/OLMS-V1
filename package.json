@@ -1,7 +1,7 @@
 {
-	"name": "olms-classic",
+	"name": "olms-v1",
 	"version": "0.1.0",
-	"description": "A local SQLite AI tutor loop that turns any topic into a guided learning session.",
+	"description": "OLMS-V1: a local SQLite AI tutor loop that turns any topic into a guided learning session.",
 	"private": true,
 	"main": "standalone-server.ts",
 	"scripts": {
@@ -20,7 +20,7 @@
 		"learning"
 	],
 	"author": "",
-	"license": "Apache-2.0",
+	"license": "AGPL-3.0-only",
 	"engines": {
 		"node": ">=22.12.0",
 		"npm": ">=10.0.0"

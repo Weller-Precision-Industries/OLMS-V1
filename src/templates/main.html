@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>OLMS Classic</title>
+		<title>OLMS-V1</title>
 		<style>
 			:root {
 				color-scheme: light;
@@ -126,6 +126,16 @@
 				min-height: 1.4em;
 			}
 
+			.legal {
+				margin-top: 24px;
+				color: var(--muted);
+				font-size: 0.92rem;
+			}
+
+			.legal a {
+				color: var(--accent-strong);
+			}
+
 			.event {
 				border-top: 1px solid var(--line);
 				padding: 18px 0;
@@ -164,7 +174,7 @@
 	<body>
 		<main>
 			<header>
-				<h1>OLMS Classic</h1>
+				<h1>OLMS-V1</h1>
 				<p class="lede">
 					Type a topic, get a focused teaching step, answer a check, and keep moving through a local SQLite-backed tutor loop.
 				</p>
@@ -185,6 +195,9 @@
 						<textarea id="answer" name="answer"></textarea>
 						<button type="submit">Submit Answer</button>
 					</form>
+					<p class="legal">
+						AGPL-3.0-only. Source and license are available in this repository.
+					</p>
 				</section>
 			</section>
 		</main>

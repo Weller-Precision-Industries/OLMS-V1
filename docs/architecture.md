@@ -1,6 +1,6 @@
 # Architecture
 
-OLMS Classic is intentionally small:
+OLMS-V1 is intentionally small:
 
 - `standalone-server.ts` owns HTTP routing.
 - `src/tutor/store.ts` owns SQLite persistence.

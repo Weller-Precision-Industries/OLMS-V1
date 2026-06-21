@@ -9,7 +9,7 @@ import { TutorStore } from "./src/tutor/store";
 import { evaluateAnswer, generateTeachingStep } from "./src/tutor/ai";
 
 const port = Number(process.env.PORT || 8080);
-const dbPath = process.env.OLMS_SQLITE_PATH || join(process.cwd(), "data", "olms-classic.sqlite");
+const dbPath = process.env.OLMS_SQLITE_PATH || join(process.cwd(), "data", "olms-v1.sqlite");
 const store = new TutorStore(dbPath);
 
 function sendJson(res: ServerResponse, status: number, body: unknown) {
@@ -163,6 +163,6 @@ async function route(req: IncomingMessage, res: ServerResponse) {
 }
 
 createServer(route).listen(port, () => {
-	console.log(`OLMS Classic running at http://localhost:${port}`);
+	console.log(`OLMS-V1 running at http://localhost:${port}`);
 	console.log(`SQLite database: ${dbPath}`);
 });

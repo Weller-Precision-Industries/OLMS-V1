@@ -1,6 +1,6 @@
-# OLMS Classic
+# OLMS-V1
 
-OLMS Classic is a local SQLite AI tutor loop. Type a topic, get a focused teaching step, answer a short check, receive feedback, and continue through a saved local session.
+OLMS-V1 is a local SQLite AI tutor loop. Type a topic, get a focused teaching step, answer a short check, receive feedback, and continue through a saved local session.
 
 This repository is intentionally small. It does not include production OLMS systems, advanced planning, graph pipelines, managed database infrastructure, account systems, or operational tooling.
 
@@ -103,3 +103,7 @@ GET /api/health
 This is a classic local tutor loop. It is not a production learning platform and does not include private OLMS product systems.
 
 See [docs/architecture.md](docs/architecture.md) and [docs/tutor-loop.md](docs/tutor-loop.md).
+
+## License
+
+OLMS-V1 is licensed under AGPL-3.0-only. If you modify it and let users interact with it over a network, the AGPL requires that those users can access the corresponding source code for your modified version.
